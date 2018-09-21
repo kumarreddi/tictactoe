@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  align-content: center;
 }
 
 .App-logo {
@@ -24,7 +25,10 @@
 
 button{
   color: goldenrod;
+  padding-bottom: 0.5em;
+  padding-top: 0.5em;
 }
+
 
 .square {
   background: #fff;
@@ -32,11 +36,11 @@ button{
   float: left;
   font-size: 24px;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
+  line-height: 100px;
+  height: 100px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 100px;
 }

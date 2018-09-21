@@ -1,70 +1,93 @@
 import React, { Component } from 'react';
-import logo from './images/logo.jpg'
-import './App.css';
-import 'font-awesome/css/font-awesome.min.css'
 
-const square = (props)=>{
+import './App.css';
+import 'font-awesome/css/font-awesome.min.css';
+import 'bootstrap/dist/css/bootstrap.css'
+
+const Square = (props) => {
   return (
-    <button className="square" onclick={props.onclick}>
-      {props.value} 
+    <button className="square" onClick={props.onclick}>
+      {props.value}
     </button>
   );
 }
 
-class Board extends React.Component{
-  render(){
+class Board extends React.Component {
+
+  createBoard = () => {
+    let rows = [];
+    for (let i = 0; i < this.props.BoardState.length; i++) {
+      let columns = [];
+      for (let j = 0; j < this.props.BoardState[0].length; j++) {
+        columns.push(<Square key={j} value={this.props.BoardState[i][j]} />);
+      }
+      rows.push(<div key={i} className="row">{columns}</div>)
+    }
+    return rows;
+  }
+
+  render() {
+    console.log(this.props.BoardState.length);
     return (
-      <square />
+      <div className="container">
+        {this.createBoard()}
+      </div>
     );
   }
 }
 
-const Button = (props) => {
+const PlayButton = (props) => {
   return (
-    <button className={props.className}> {props.text}</button>
+    <button className={props.className} onClick={props.onClick}> {props.text}</button>
   );
 }
 
 
 class App extends Component {
-  state={
-   BoardSize: '',
-   BoardState: [[]] 
+  state = {
+    BoardSize: '',
+    BoardState: [[]]
   }
 
-  initializeBoard = (size) =>{
+  initializeBoard = (size) => {
+    console.log(size);
     this.setState({
-        BoardSize: size,
-        BoardState: [...Array(size)].map(e=>Array(size))
+      BoardSize: size,
+      BoardState: [...Array(size)].map(e => Array(size))
     });
   }
 
   render() {
 
-      let board;
-      if(this.state.BoardSize)
-      {
-       board =  <Board size={this.state.BoardSize} />
-      }
-      else
-      {
-        board = ""
-      }
-    
+    let board;
+    if (this.state.BoardSize) {
+
+      board = <Board BoardState={this.state.BoardState} />
+    }
+    else {
+      board = ""
+    }
+
 
     return (
-      <div className="App">
-            <Button className="fa fa-play fa-5x" text = "3x3" />
-            
-            <Button className="fa fa-play fa-5x" text = "4x4" />
-            
-            <Button className="fa fa-play fa-5x" text = "5x5" />
-      
-      <div>
-        {board}
+      <div >
+       
+        <div>
+          <PlayButton onClick={() => this.initializeBoard(3)} className="fa fa-3x" text="3x3 Board" />
+          <br />
+          <PlayButton onClick={() => this.initializeBoard(4)} className="fa fa-3x" text="4x4 Board" />
+          <br />
+          <PlayButton onClick={() => this.initializeBoard(5)} className="fa fa-3x" text="5x5 Board" />
+        </div>
+        <br />
+        <br />
+        <br />
+        <div>
+          {board}
+        </div>
+
       </div>
-       </div>
-     
+
     );
   }
 }
